@@ -1,11 +1,12 @@
 ---
+# Install a role from Ansible Galaxy.
+# ansible-galaxy install --roles-path . -r requirements.yml
 roles:
-  # Install a role from Ansible Galaxy.
-  - name: linux-system-roles.timesync
-    version: "1.7.5" # note that ranges are not supported for roles
+  - name: linux-system-roles.storage
+    version: "1.12.3" # note that ranges are not supported for roles
 
+# Install a collection from Ansible Galaxy.
+# ansible-galaxy collection install -r requirements.yml
 collections:
-  # Install a collection from Ansible Galaxy.
-  # - name: geerlingguy.php_roles
-  #   version: ">=0.9.3"
-  #   source: https://galaxy.ansible.com
+  - name: community.general
+  - name: ansible.posix

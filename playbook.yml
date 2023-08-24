@@ -28,4 +28,4 @@
   become: true
 
   roles:
-    - role: java
+    - role: linux-system-roles.storage

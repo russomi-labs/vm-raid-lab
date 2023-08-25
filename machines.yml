@@ -8,3 +8,16 @@ machines:
     ip_addr: 192.168.56.5
     memory: "1024"
     no_share: true
+    disks:
+      - name: disk-0
+        type: disk # disk, dvd, floppy
+        size: 2GB
+      - name: disk-1
+        type: disk
+        size: 2GB
+      - name: disk-2
+        type: disk
+        size: 2GB
+      - name: disk-3
+        type: disk
+        size: 2GB

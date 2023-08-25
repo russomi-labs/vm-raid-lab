@@ -55,10 +55,12 @@ Vagrant.configure(2) do |config|
           guest: g['app_port']
       end
 
-      # add disks for RAID setup
-      # this adds 4 x 5GB disks to the VM
-      (0..3).each do |i|
-        s.vm.disk :disk, size: "5GB", name: "disk-#{i}"
+      # attach disks to guest
+      # disk, dvd, floppy
+      if g['disks']
+        g['disks'].each do |i|
+          s.vm.disk i['type'].to_sym, size: i['size'], name: i['name']
+        end
       end
 
       # set no_share to false to enable file sharing

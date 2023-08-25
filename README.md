@@ -4,6 +4,11 @@ Provision a Centos 7.9 virtual machine and
 provision additional disks for RAID configuration.
 
 - [Getting Started](#getting-started)
+- [Standard Partitioning in Linux](#standard-partitioning-in-linux)
+  - [Partition a drive and create a file system](#partition-a-drive-and-create-a-file-system)
+  - [Mount the filesystem](#mount-the-filesystem)
+  - [Mount the filesystem automatically](#mount-the-filesystem-automatically)
+  - [Check mounting](#check-mounting)
 - [Logical Volumes](#logical-volumes)
   - [LVM Architecture](#lvm-architecture)
   - [LVM Components](#lvm-components)
@@ -17,11 +22,6 @@ provision additional disks for RAID configuration.
   - [Growing Logical Volumes](#growing-logical-volumes)
   - [Creating an XFS File System](#creating-an-xfs-file-system)
   - [Mount Logical Volume](#mount-logical-volume)
-- [Example without LVM](#example-without-lvm)
-  - [Partition a drive and create a file system](#partition-a-drive-and-create-a-file-system)
-  - [Mount the filesystem](#mount-the-filesystem)
-  - [Mount the filesystem automatically](#mount-the-filesystem-automatically)
-  - [Check mounting](#check-mounting)
 - [Resources](#resources)
 
 ## Getting Started
@@ -33,6 +33,56 @@ vagrant up
 vagrant ssh centos7-raid
 vagrant halt
 vagrant destroy
+```
+
+## Standard Partitioning in Linux
+
+### Partition a drive and create a file system
+
+```bash
+# list devices
+ls /dev/sd*
+
+# partition with fdisk
+fdisk /dev/sdb
+
+# list devices
+ls /dev/sd*
+
+# create a file system
+# /sbin/mkfs.ext4 -L /data /dev/sdb1
+```
+
+### Mount the filesystem
+
+```bash
+# create a directory for the mounting
+mkdir /data
+
+# mount the drive to the created directory
+mount /dev/sdb1 /data
+
+# show all the current mounted systems
+mount
+```
+
+### Mount the filesystem automatically
+
+For this to happen, we need to add an entry in /etc/fstab file
+
+```bash
+vim /etc/fstab
+# LABEL=/data     /data   ext4    defaults        1       2
+```
+
+### Check mounting
+
+```bash
+# list all the mounting with UUID
+blkid
+
+# list block devices
+lsblk -f
 ```
 
 ## Logical Volumes
@@ -151,56 +201,6 @@ mount /dev/vg1/lv4 /mnt
 df
 ```
 
-## Example without LVM
-
-### Partition a drive and create a file system
-
-```bash
-# list devices
-ls /dev/sd*
-
-# partition with fdisk
-fdisk /dev/sdb
-
-# list devices
-ls /dev/sd*
-
-# create a file system
-# /sbin/mkfs.ext4 -L /data /dev/sdb1
-```
-
-### Mount the filesystem
-
-```bash
-# create a directory for the mounting
-mkdir /data
-
-# mount the drive to the created directory
-mount /dev/sdb1 /data
-
-# show all the current mounted systems
-mount
-```
-
-### Mount the filesystem automatically
-
-For this to happen, we need to add an entry in /etc/fstab file
-
-```bash
-vim /etc/fstab
-# LABEL=/data     /data   ext4    defaults        1       2
-```
-
-### Check mounting
-
-```bash
-# list all the mounting with UUID
-blkid
-
-# list block devices
-lsblk -f
-```
-
 ## Resources
 
 - [LVM Configuration Examples](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/logical_volume_manager_administration/lvm_examples)
@@ -217,3 +217,5 @@ lsblk -f
 - [Red Hat Enterprise Linux (RHEL) System Roles](https://access.redhat.com/articles/3050101)
 - [Ways to check for open ports on RHEL](https://access.redhat.com/discussions/3539801)
 - [Logical Volume Manager (LVM) versus standard partitioning in Linux](https://www.redhat.com/sysadmin/lvm-vs-partitioning)
+- [Ansible best practices: using project-local collections and roles](https://www.jeffgeerling.com/blog/2020/ansible-best-practices-using-project-local-collections-and-roles)
+- [Ansible Galaxy Support](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#ansible-galaxy-support)

@@ -203,6 +203,11 @@ df
 
 ## Resources
 
+- [Configuring an LVM pool with RAID using the storage RHEL System Role](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_logical_volumes/managing-local-storage-using-rhel-system-roles_configuring-and-managing-logical-volumes#configuring-lvm-pool-with-raid-using-storage-system-role_managing-local-storage-using-rhel-system-roles)
+- [Managing local storage using RHEL System Roles](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_logical_volumes/managing-local-storage-using-rhel-system-roles_configuring-and-managing-logical-volumes)
+- [Simple Partitioning with Ansible Storage Role](https://storageapis.wordpress.com/2022/01/28/simple-partitioning-with-ansible-storage-role/)
+- [Introduction to Ansible for Linux System Roles](https://linux-system-roles.github.io/documentation/intro-to-ansible-for-system-roles.html)
+- [linux-system-roles](https://github.com/linux-system-roles)
 - [LVM Configuration Examples](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/logical_volume_manager_administration/lvm_examples)
 - [RHEL 7 - Storage Administration Guide](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/storage_administration_guide/index)
 - [RHEL 7 - Logical Volume Manager Administration](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/logical_volume_manager_administration/index)

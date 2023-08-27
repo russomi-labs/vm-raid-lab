@@ -1,0 +1,25 @@
+- name: Manage storage
+  hosts: all
+  roles:
+    - name: linux-system-roles.storage
+      storage_pools:
+        - name: app
+          disks:
+            - sdb
+            - sdc
+          volumes:
+            - name: shared
+              size: "100 GiB"
+              mount_point: "/mnt/app/shared"
+              #fs_type: xfs
+              state: present
+            - name: users
+              size: "400g"
+              fs_type: ext4
+              mount_point: "/mnt/app/users"
+      storage_volumes:
+        - name: images
+          type: disk
+          disks: ["mpathc"]
+          mount_point: /opt/images
+          fs_label: images

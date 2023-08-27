@@ -1,0 +1,40 @@
+---
+- hosts: all
+  become: true
+  vars:
+    storage_safe_mode: false
+    disks:
+      - "/dev/sdb"
+      - "/dev/sdc"
+      - "/dev/sdd"
+      - "/dev/sde"
+    raid: "raid10"
+    mount_location1: "/opt/test1"
+    mount_location2: "/opt/test2"
+    mount_location3: "/opt/test3"
+    volume1_size: "1g"
+    volume2_size: "1g"
+    volume3_size: "1g"
+  tags:
+    - storage
+  tasks:
+    - name: Create three LVM logical volumes under volume group 'vg1' spread over four disks
+      include_role:
+        name: linux-system-roles.storage
+      vars:
+        storage_pools:
+          - name: vg1
+            disks: "{{ disks }}"
+            type: lvm
+            raid_level: "{{ raid }}"
+            state: present
+            volumes:
+              - name: lv1
+                size: "{{ volume1_size }}"
+                mount_point: "{{ mount_location1 }}"
+              - name: lv2
+                size: "{{ volume2_size }}"
+                mount_point: "{{ mount_location2 }}"
+              - name: lv3
+                size: "{{ volume3_size }}"
+                mount_point: "{{ mount_location3 }}"

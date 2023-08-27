@@ -4,7 +4,12 @@ Provision a Centos 7.9 virtual machine and
 provision additional disks for RAID configuration.
 
 - [Getting Started](#getting-started)
-- [Standard Partitioning in Linux](#standard-partitioning-in-linux)
+  - [Create `.env` file](#create-env-file)
+  - [Configure VMs](#configure-vms)
+  - [Starting and Stopping the VM](#starting-and-stopping-the-vm)
+  - [Downloading dependencies](#downloading-dependencies)
+  - [Running the Ansible Playbook](#running-the-ansible-playbook)
+- [Standard Partitioning](#standard-partitioning)
   - [Partition a drive and create a file system](#partition-a-drive-and-create-a-file-system)
   - [Mount the filesystem](#mount-the-filesystem)
   - [Mount the filesystem automatically](#mount-the-filesystem-automatically)
@@ -26,16 +31,52 @@ provision additional disks for RAID configuration.
 
 ## Getting Started
 
-Update [machines.yml](machines.yml) to configure the VMs that will be created.
+### Create `.env` file
+
+1. Copy  `.env.example` as `.env`
+2. Add/Update environment variables as needed
+3. `source .env` to load variables into the current session
+
+### Configure VMs
+
+Update [Vagrantfile.yml](Vagrantfile.yml) to configure the VMs that will be created.
+
+### Starting and Stopping the VM
 
 ```bash
+# bring the VM up
 vagrant up
+
+# connect via ssh
 vagrant ssh centos7-raid
+
+# stop the vm
 vagrant halt
+
+# delete the vm
 vagrant destroy
 ```
 
-## Standard Partitioning in Linux
+### Downloading dependencies
+
+Download the role and collection dependencies:
+
+```bash
+cd roles
+ansible-galaxy install --roles-path . -r requirements.yml
+ansible-galaxy collection install -r requirements.yml
+```
+
+### Running the Ansible Playbook
+
+To execute the playbook to configure the VM execute the following:
+
+```bash
+# run the playbook against a specific vm
+ansible-playbook playbook.yml --limit centos7-raid
+```
+
+## Standard Partitioning
 
 ### Partition a drive and create a file system
 

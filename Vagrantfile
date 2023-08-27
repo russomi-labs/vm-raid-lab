@@ -5,7 +5,7 @@ require 'yaml'
 ansible_local_provision = false
 
 # Read YAML file with config details
-f = YAML.load_file(File.join(File.dirname(__FILE__), 'machines.yml'))
+f = YAML.load_file(File.join(File.dirname(__FILE__), 'Vagrantfile.yml'))
 
 # Local PATH_SRC for mounting
 $PathSrc = ENV['PATH_SRC'] || "."
